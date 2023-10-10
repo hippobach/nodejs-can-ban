@@ -5,8 +5,20 @@ const getHomePage = (req, res) => {
 };
 
 const postCreateUser = (req, res) => {
-    console.log(req.body);
-    res.send('create a new user');
+    let email = req.body.email;
+    let name = req.body.myname;
+    let city = req.body.city;
+
+    console.log('>>> email: ', email, 'name: ', name, 'city: ', city);
+
+    connection.query(
+        `INSERT INTO Users (email, name, city) 
+        VALUES (?, ?, ?)`,
+        [email, name, city],
+        function (err, results) {
+            res.send('create user suceed!!');
+        }
+    );
 };
 
 module.exports = {
