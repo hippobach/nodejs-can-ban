@@ -30,7 +30,6 @@ const postUpdateUser = async (req, res) => {
     let name = req.body.myname;
     let city = req.body.city;
 
-    // console.log('>>> email: ', email, 'name: ', name, 'city: ', city, 'userId: ', userId);
     await updateUserById(email, city, name, userId);
 
     res.redirect('/');
@@ -47,10 +46,22 @@ const getUpdatePage = async (req, res) => {
     res.render('edit.ejs', { userEdit: user });
 };
 
+const postDeleteUser = async (req, res) => {
+    const userId = req.params.id;
+    let user = await getUserById(userId);
+    res.render('delete.ejs', { userEdit: user });
+};
+
+const postHandleRemoveUser = (req, res) => {
+    res.send('Deleted');
+};
+
 module.exports = {
     getHomePage,
     postCreateUser,
     postUpdateUser,
     getCreatePage,
     getUpdatePage,
+    postDeleteUser,
+    postHandleRemoveUser,
 };
